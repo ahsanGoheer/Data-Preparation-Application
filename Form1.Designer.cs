@@ -31,7 +31,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.imageBox = new System.Windows.Forms.ListBox();
             this.input_PB = new System.Windows.Forms.PictureBox();
-            this.BinarizeWorker = new System.ComponentModel.BackgroundWorker();
+            this.ProcessWorker = new System.ComponentModel.BackgroundWorker();
             this.panel1 = new System.Windows.Forms.Panel();
             this.outputImageBox = new System.Windows.Forms.PictureBox();
             this.outputLabel = new System.Windows.Forms.Label();
@@ -472,7 +472,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ListBox imageBox;
         private System.Windows.Forms.PictureBox input_PB;
-        private System.ComponentModel.BackgroundWorker BinarizeWorker;
+        private System.ComponentModel.BackgroundWorker ProcessWorker;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox outputImageBox;
         private System.Windows.Forms.Label outputLabel;

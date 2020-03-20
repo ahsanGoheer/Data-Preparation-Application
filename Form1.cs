@@ -25,7 +25,7 @@ namespace Data_Preparation_Application
             wolfRb.CheckedChanged += RadioBtnFunc;
             simpleThresh.CheckedChanged += RadioBtnFunc;
             OtsuRb.CheckedChanged += RadioBtnFunc;
-            BinarizeWorker.DoWork += Binarize;
+            ProcessWorker.DoWork += Binarize;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -132,7 +132,7 @@ namespace Data_Preparation_Application
 
         private void binApplyBtn_Click(object sender, EventArgs e)
         {
-            BinarizeWorker.RunWorkerAsync();
+            ProcessWorker.RunWorkerAsync();
         }
 
         public void Binarize(object sender,DoWorkEventArgs e)
