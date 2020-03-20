@@ -30,11 +30,15 @@ namespace Data_Preparation_Application
             prewittRb.CheckedChanged += RadioBtnFunc;
             ProcessWorker.DoWork += Binarize;
             EdgeDetect.DoWork += ApplyEdge;
+            Misc.DoWork += SharpenSmooth;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             InitializeFileDialogBox();
+            inPutRb.Checked = true;
+            inRb.Checked = true;
+            edgeInputRB.Checked = true;
         }
 
         private void InitializeFileDialogBox()
@@ -144,6 +148,7 @@ namespace Data_Preparation_Application
             {
                 panel4.Visible = false;
             }
+           
         }
 
         private void binApplyBtn_Click(object sender, EventArgs e)
@@ -272,8 +277,12 @@ namespace Data_Preparation_Application
         private void button3_Click(object sender, EventArgs e)
         {
             label4.Text = "Status : Processing!";
-
-            EdgeDetect.RunWorkerAsync();
+            if (!EdgeDetect.IsBusy)
+            { EdgeDetect.RunWorkerAsync(); }
+            else
+            {
+                MessageBox.Show("Kindly Wait");
+            }
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -291,6 +300,66 @@ namespace Data_Preparation_Application
         {
             label4.Text = "Status : Done!";
 
+        }
+        private void SharpenSmooth(object sender,DoWorkEventArgs e)
+        {
+            Bitmap raw_image = null;
+            if (inRb.Checked)
+            {
+                raw_image = Accord.Imaging.Filters.Grayscale.CommonAlgorithms.BT709.Apply((Bitmap)input_PB.Image.Clone());
+
+            }
+            else if (outRb.Checked)
+            {
+                raw_image = (Bitmap)outputImageBox.Image.Clone();
+
+            }
+            if (sharpenRB.Checked)
+            {
+                var sharpen = new Sharpen();
+                sharpen.Threshold = (Byte)threshVal.Value;
+                UnmanagedImage r_img = UnmanagedImage.FromManagedImage(raw_image);
+                outputImageBox.Image.Dispose();
+                r_img = sharpen.Apply(r_img);
+                outputImageBox.Image = r_img.ToManagedImage();
+            }
+            else if(smoothingRB.Checked)
+            {
+                var Smoothing = new AdaptiveSmoothing();
+                Smoothing.Factor = (double)(threshVal.Value);
+                UnmanagedImage r_img = UnmanagedImage.FromManagedImage(raw_image);
+                outputImageBox.Image.Dispose();
+                r_img = Smoothing.Apply(r_img);
+                outputImageBox.Image = r_img.ToManagedImage();
+
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            label4.Text = "Status : Processing!";
+            if (!Misc.IsBusy)
+            { Misc.RunWorkerAsync(); }
+            else
+            {
+                MessageBox.Show("Kindly Wait!");
+            }
+        }
+
+        private void Misc_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            label4.Text = "Status : Done!";
+        }
+
+        private void threshVal_ValueChanged(object sender, EventArgs e)
+        {
+            label4.Text = "Status : Processing!";
+            if (!Misc.IsBusy)
+            { Misc.RunWorkerAsync(); }
+            else
+            {
+                MessageBox.Show("Kindly Wait!");
+            }
         }
     }
 }

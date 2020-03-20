@@ -45,16 +45,17 @@
             this.holderlbl_2 = new System.Windows.Forms.Label();
             this.holderlbl_1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.outPutRB = new System.Windows.Forms.RadioButton();
+            this.inPutRb = new System.Windows.Forms.RadioButton();
             this.binApplyBtn = new System.Windows.Forms.Button();
             this.OtsuRb = new System.Windows.Forms.RadioButton();
             this.simpleThresh = new System.Windows.Forms.RadioButton();
             this.wolfRb = new System.Windows.Forms.RadioButton();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.ImageLoader = new System.Windows.Forms.OpenFileDialog();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
@@ -62,20 +63,30 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.edgeOutputRb = new System.Windows.Forms.RadioButton();
+            this.edgeInputRB = new System.Windows.Forms.RadioButton();
             this.button3 = new System.Windows.Forms.Button();
             this.CannyRb = new System.Windows.Forms.RadioButton();
             this.prewittRb = new System.Windows.Forms.RadioButton();
             this.sobelRb = new System.Windows.Forms.RadioButton();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.ImageLoader = new System.Windows.Forms.OpenFileDialog();
             this.EdgeDetect = new System.ComponentModel.BackgroundWorker();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.edgeInputRB = new System.Windows.Forms.RadioButton();
-            this.edgeOutputRb = new System.Windows.Forms.RadioButton();
-            this.panel7 = new System.Windows.Forms.Panel();
-            this.outPutRB = new System.Windows.Forms.RadioButton();
-            this.inPutRb = new System.Windows.Forms.RadioButton();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.outRb = new System.Windows.Forms.RadioButton();
+            this.inRb = new System.Windows.Forms.RadioButton();
+            this.button4 = new System.Windows.Forms.Button();
+            this.smoothingRB = new System.Windows.Forms.RadioButton();
+            this.sharpenRB = new System.Windows.Forms.RadioButton();
+            this.label6 = new System.Windows.Forms.Label();
+            this.threshVal = new System.Windows.Forms.NumericUpDown();
+            this.Misc = new System.ComponentModel.BackgroundWorker();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.input_PB)).BeginInit();
             this.panel1.SuspendLayout();
@@ -84,11 +95,16 @@
             this.tabPage1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.panel7.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel6.SuspendLayout();
-            this.panel7.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.panel8.SuspendLayout();
+            this.panel9.SuspendLayout();
+            this.panel10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.threshVal)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -250,6 +266,37 @@
             this.panel2.Size = new System.Drawing.Size(338, 222);
             this.panel2.TabIndex = 0;
             // 
+            // panel7
+            // 
+            this.panel7.Controls.Add(this.outPutRB);
+            this.panel7.Controls.Add(this.inPutRb);
+            this.panel7.Location = new System.Drawing.Point(31, 174);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(192, 29);
+            this.panel7.TabIndex = 5;
+            // 
+            // outPutRB
+            // 
+            this.outPutRB.AutoSize = true;
+            this.outPutRB.Location = new System.Drawing.Point(108, 3);
+            this.outPutRB.Name = "outPutRB";
+            this.outPutRB.Size = new System.Drawing.Size(69, 21);
+            this.outPutRB.TabIndex = 1;
+            this.outPutRB.TabStop = true;
+            this.outPutRB.Text = "output";
+            this.outPutRB.UseVisualStyleBackColor = true;
+            // 
+            // inPutRb
+            // 
+            this.inPutRb.AutoSize = true;
+            this.inPutRb.Location = new System.Drawing.Point(3, 3);
+            this.inPutRb.Name = "inPutRb";
+            this.inPutRb.Size = new System.Drawing.Size(60, 21);
+            this.inPutRb.TabIndex = 0;
+            this.inPutRb.TabStop = true;
+            this.inPutRb.Text = "input";
+            this.inPutRb.UseVisualStyleBackColor = true;
+            // 
             // binApplyBtn
             // 
             this.binApplyBtn.Location = new System.Drawing.Point(235, 159);
@@ -305,36 +352,6 @@
             this.tabPage2.Text = "Edge Detection";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // tabPage3
-            // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 25);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(762, 273);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Point Operations";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(967, 589);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(190, 45);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Load Images";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(1172, 589);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(190, 45);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "Save Images";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
             // panel4
             // 
             this.panel4.Controls.Add(this.textBox4);
@@ -350,6 +367,22 @@
             this.panel4.Size = new System.Drawing.Size(337, 222);
             this.panel4.TabIndex = 3;
             this.panel4.Visible = false;
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(129, 170);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(166, 22);
+            this.textBox4.TabIndex = 7;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(27, 170);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(103, 17);
+            this.label5.TabIndex = 6;
+            this.label5.Text = "Gaussian Size:";
             // 
             // textBox1
             // 
@@ -412,6 +445,37 @@
             this.panel5.Size = new System.Drawing.Size(338, 222);
             this.panel5.TabIndex = 2;
             // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.edgeOutputRb);
+            this.panel6.Controls.Add(this.edgeInputRB);
+            this.panel6.Location = new System.Drawing.Point(16, 163);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(192, 29);
+            this.panel6.TabIndex = 4;
+            // 
+            // edgeOutputRb
+            // 
+            this.edgeOutputRb.AutoSize = true;
+            this.edgeOutputRb.Location = new System.Drawing.Point(108, 3);
+            this.edgeOutputRb.Name = "edgeOutputRb";
+            this.edgeOutputRb.Size = new System.Drawing.Size(69, 21);
+            this.edgeOutputRb.TabIndex = 1;
+            this.edgeOutputRb.TabStop = true;
+            this.edgeOutputRb.Text = "output";
+            this.edgeOutputRb.UseVisualStyleBackColor = true;
+            // 
+            // edgeInputRB
+            // 
+            this.edgeInputRB.AutoSize = true;
+            this.edgeInputRB.Location = new System.Drawing.Point(15, 3);
+            this.edgeInputRB.Name = "edgeInputRB";
+            this.edgeInputRB.Size = new System.Drawing.Size(60, 21);
+            this.edgeInputRB.TabIndex = 0;
+            this.edgeInputRB.TabStop = true;
+            this.edgeInputRB.Text = "input";
+            this.edgeInputRB.UseVisualStyleBackColor = true;
+            // 
             // button3
             // 
             this.button3.Location = new System.Drawing.Point(235, 159);
@@ -455,6 +519,38 @@
             this.sobelRb.Text = "Sobel";
             this.sobelRb.UseVisualStyleBackColor = true;
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.panel8);
+            this.tabPage3.Controls.Add(this.panel9);
+            this.tabPage3.Location = new System.Drawing.Point(4, 25);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(762, 273);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Misc";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(967, 589);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(190, 45);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Load Images";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(1172, 589);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(190, 45);
+            this.button2.TabIndex = 5;
+            this.button2.Text = "Save Images";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // EdgeDetect
             // 
             this.EdgeDetect.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.EdgeDetect_RunWorkerCompleted);
@@ -468,83 +564,114 @@
             this.label4.TabIndex = 6;
             this.label4.Text = "Status :";
             // 
-            // textBox4
+            // panel8
             // 
-            this.textBox4.Location = new System.Drawing.Point(129, 170);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(166, 22);
-            this.textBox4.TabIndex = 7;
+            this.panel8.Controls.Add(this.threshVal);
+            this.panel8.Controls.Add(this.label6);
+            this.panel8.Location = new System.Drawing.Point(402, 25);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(337, 222);
+            this.panel8.TabIndex = 5;
             // 
-            // label5
+            // panel9
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(27, 170);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(103, 17);
-            this.label5.TabIndex = 6;
-            this.label5.Text = "Gaussian Size:";
+            this.panel9.Controls.Add(this.panel10);
+            this.panel9.Controls.Add(this.button4);
+            this.panel9.Controls.Add(this.smoothingRB);
+            this.panel9.Controls.Add(this.sharpenRB);
+            this.panel9.Location = new System.Drawing.Point(24, 25);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(338, 222);
+            this.panel9.TabIndex = 4;
             // 
-            // panel6
+            // panel10
             // 
-            this.panel6.Controls.Add(this.edgeOutputRb);
-            this.panel6.Controls.Add(this.edgeInputRB);
-            this.panel6.Location = new System.Drawing.Point(16, 163);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(192, 29);
-            this.panel6.TabIndex = 4;
+            this.panel10.Controls.Add(this.outRb);
+            this.panel10.Controls.Add(this.inRb);
+            this.panel10.Location = new System.Drawing.Point(16, 163);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(192, 29);
+            this.panel10.TabIndex = 4;
             // 
-            // edgeInputRB
+            // outRb
             // 
-            this.edgeInputRB.AutoSize = true;
-            this.edgeInputRB.Location = new System.Drawing.Point(15, 3);
-            this.edgeInputRB.Name = "edgeInputRB";
-            this.edgeInputRB.Size = new System.Drawing.Size(60, 21);
-            this.edgeInputRB.TabIndex = 0;
-            this.edgeInputRB.TabStop = true;
-            this.edgeInputRB.Text = "input";
-            this.edgeInputRB.UseVisualStyleBackColor = true;
+            this.outRb.AutoSize = true;
+            this.outRb.Location = new System.Drawing.Point(108, 3);
+            this.outRb.Name = "outRb";
+            this.outRb.Size = new System.Drawing.Size(69, 21);
+            this.outRb.TabIndex = 1;
+            this.outRb.TabStop = true;
+            this.outRb.Text = "output";
+            this.outRb.UseVisualStyleBackColor = true;
             // 
-            // edgeOutputRb
+            // inRb
             // 
-            this.edgeOutputRb.AutoSize = true;
-            this.edgeOutputRb.Location = new System.Drawing.Point(108, 3);
-            this.edgeOutputRb.Name = "edgeOutputRb";
-            this.edgeOutputRb.Size = new System.Drawing.Size(69, 21);
-            this.edgeOutputRb.TabIndex = 1;
-            this.edgeOutputRb.TabStop = true;
-            this.edgeOutputRb.Text = "output";
-            this.edgeOutputRb.UseVisualStyleBackColor = true;
+            this.inRb.AutoSize = true;
+            this.inRb.Location = new System.Drawing.Point(15, 3);
+            this.inRb.Name = "inRb";
+            this.inRb.Size = new System.Drawing.Size(60, 21);
+            this.inRb.TabIndex = 0;
+            this.inRb.TabStop = true;
+            this.inRb.Text = "input";
+            this.inRb.UseVisualStyleBackColor = true;
             // 
-            // panel7
+            // button4
             // 
-            this.panel7.Controls.Add(this.outPutRB);
-            this.panel7.Controls.Add(this.inPutRb);
-            this.panel7.Location = new System.Drawing.Point(31, 174);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(192, 29);
-            this.panel7.TabIndex = 5;
+            this.button4.Location = new System.Drawing.Point(235, 159);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 44);
+            this.button4.TabIndex = 3;
+            this.button4.Text = "Apply";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
-            // outPutRB
+            // smoothingRB
             // 
-            this.outPutRB.AutoSize = true;
-            this.outPutRB.Location = new System.Drawing.Point(108, 3);
-            this.outPutRB.Name = "outPutRB";
-            this.outPutRB.Size = new System.Drawing.Size(69, 21);
-            this.outPutRB.TabIndex = 1;
-            this.outPutRB.TabStop = true;
-            this.outPutRB.Text = "output";
-            this.outPutRB.UseVisualStyleBackColor = true;
+            this.smoothingRB.AutoSize = true;
+            this.smoothingRB.Location = new System.Drawing.Point(31, 80);
+            this.smoothingRB.Name = "smoothingRB";
+            this.smoothingRB.Size = new System.Drawing.Size(96, 21);
+            this.smoothingRB.TabIndex = 1;
+            this.smoothingRB.TabStop = true;
+            this.smoothingRB.Text = "Smoothing";
+            this.smoothingRB.UseVisualStyleBackColor = true;
             // 
-            // inPutRb
+            // sharpenRB
             // 
-            this.inPutRb.AutoSize = true;
-            this.inPutRb.Location = new System.Drawing.Point(3, 3);
-            this.inPutRb.Name = "inPutRb";
-            this.inPutRb.Size = new System.Drawing.Size(60, 21);
-            this.inPutRb.TabIndex = 0;
-            this.inPutRb.TabStop = true;
-            this.inPutRb.Text = "input";
-            this.inPutRb.UseVisualStyleBackColor = true;
+            this.sharpenRB.AutoSize = true;
+            this.sharpenRB.Location = new System.Drawing.Point(31, 38);
+            this.sharpenRB.Name = "sharpenRB";
+            this.sharpenRB.Size = new System.Drawing.Size(83, 21);
+            this.sharpenRB.TabIndex = 0;
+            this.sharpenRB.TabStop = true;
+            this.sharpenRB.Text = "Sharpen";
+            this.sharpenRB.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(56, 84);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(56, 17);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Value : ";
+            // 
+            // threshVal
+            // 
+            this.threshVal.Location = new System.Drawing.Point(142, 82);
+            this.threshVal.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.threshVal.Name = "threshVal";
+            this.threshVal.Size = new System.Drawing.Size(120, 22);
+            this.threshVal.TabIndex = 1;
+            this.threshVal.ValueChanged += new System.EventHandler(this.threshVal_ValueChanged);
+            // 
+            // Misc
+            // 
+            this.Misc.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.Misc_RunWorkerCompleted);
             // 
             // Form1
             // 
@@ -572,6 +699,8 @@
             this.panel3.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.panel7.ResumeLayout(false);
+            this.panel7.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
@@ -579,8 +708,14 @@
             this.panel5.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
-            this.panel7.ResumeLayout(false);
-            this.panel7.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.panel8.ResumeLayout(false);
+            this.panel8.PerformLayout();
+            this.panel9.ResumeLayout(false);
+            this.panel9.PerformLayout();
+            this.panel10.ResumeLayout(false);
+            this.panel10.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.threshVal)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -636,6 +771,17 @@
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.RadioButton edgeOutputRb;
         private System.Windows.Forms.RadioButton edgeInputRB;
+        private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.Panel panel10;
+        private System.Windows.Forms.RadioButton outRb;
+        private System.Windows.Forms.RadioButton inRb;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.RadioButton smoothingRB;
+        private System.Windows.Forms.RadioButton sharpenRB;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.NumericUpDown threshVal;
+        private System.ComponentModel.BackgroundWorker Misc;
     }
 }
 
