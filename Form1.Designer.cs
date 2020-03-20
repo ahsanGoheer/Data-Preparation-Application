@@ -87,6 +87,9 @@
             this.label6 = new System.Windows.Forms.Label();
             this.threshVal = new System.Windows.Forms.NumericUpDown();
             this.Misc = new System.ComponentModel.BackgroundWorker();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.input_PB)).BeginInit();
             this.panel1.SuspendLayout();
@@ -105,6 +108,7 @@
             this.panel9.SuspendLayout();
             this.panel10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.threshVal)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -195,6 +199,8 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.numericUpDown1);
+            this.panel3.Controls.Add(this.label7);
             this.panel3.Controls.Add(this.holderTb_3);
             this.panel3.Controls.Add(this.holderTb_2);
             this.panel3.Controls.Add(this.holderTb_1);
@@ -575,6 +581,7 @@
             // 
             // panel9
             // 
+            this.panel9.Controls.Add(this.radioButton1);
             this.panel9.Controls.Add(this.panel10);
             this.panel9.Controls.Add(this.button4);
             this.panel9.Controls.Add(this.smoothingRB);
@@ -635,6 +642,7 @@
             this.smoothingRB.TabStop = true;
             this.smoothingRB.Text = "Smoothing";
             this.smoothingRB.UseVisualStyleBackColor = true;
+            this.smoothingRB.CheckedChanged += new System.EventHandler(this.smoothingRB_CheckedChanged);
             // 
             // sharpenRB
             // 
@@ -646,6 +654,7 @@
             this.sharpenRB.TabStop = true;
             this.sharpenRB.Text = "Sharpen";
             this.sharpenRB.UseVisualStyleBackColor = true;
+            this.sharpenRB.CheckedChanged += new System.EventHandler(this.sharpenRB_CheckedChanged);
             // 
             // label6
             // 
@@ -671,7 +680,42 @@
             // 
             // Misc
             // 
+           
             this.Misc.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.Misc_RunWorkerCompleted);
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(130, 9);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(120, 22);
+            this.numericUpDown1.TabIndex = 3;
+            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(28, 11);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(56, 17);
+            this.label7.TabIndex = 2;
+            this.label7.Text = "Value : ";
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(31, 118);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(64, 21);
+            this.radioButton1.TabIndex = 5;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "Invert";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // Form1
             // 
@@ -716,6 +760,7 @@
             this.panel10.ResumeLayout(false);
             this.panel10.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.threshVal)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -782,6 +827,9 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.NumericUpDown threshVal;
         private System.ComponentModel.BackgroundWorker Misc;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.RadioButton radioButton1;
     }
 }
 

@@ -154,8 +154,14 @@ namespace Data_Preparation_Application
         private void binApplyBtn_Click(object sender, EventArgs e)
         {
             label4.Text = "Status : Processing!";
+            if(!ProcessWorker.IsBusy)
+            {
+                ProcessWorker.RunWorkerAsync();
 
-            ProcessWorker.RunWorkerAsync();
+            }
+            {
+                MessageBox.Show("Kindly Wait!");
+            }
         }
 
         public void Binarize(object sender,DoWorkEventArgs e)
@@ -333,6 +339,15 @@ namespace Data_Preparation_Application
                 outputImageBox.Image = r_img.ToManagedImage();
 
             }
+            else if(radioButton1.Checked)
+            {
+                var Invert = new Invert();
+                
+                UnmanagedImage r_img = UnmanagedImage.FromManagedImage(raw_image);
+                outputImageBox.Image.Dispose();
+                r_img =Invert.Apply(r_img);
+                outputImageBox.Image = r_img.ToManagedImage();
+            }
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -361,5 +376,39 @@ namespace Data_Preparation_Application
                 MessageBox.Show("Kindly Wait!");
             }
         }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            holderTb_1.Text = numericUpDown1.Value.ToString() ;
+            if (!ProcessWorker.IsBusy)
+            {
+              
+                    label4.Text = "Status : Processing!";
+                    ProcessWorker.RunWorkerAsync();
+             
+            }
+            else
+            {
+                MessageBox.Show("Kindly Wait!");
+            }
+            
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            threshVal.Visible = false;
+        }
+
+        private void smoothingRB_CheckedChanged(object sender, EventArgs e)
+        {
+            threshVal.Visible= true;
+        }
+
+        private void sharpenRB_CheckedChanged(object sender, EventArgs e)
+        {
+            threshVal.Visible = true;
+        }
+
+       
     }
 }
