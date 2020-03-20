@@ -18,7 +18,7 @@ namespace Data_Preparation_Application
     public partial class Form1 : Form
     {
         List<string> operations = new List<string>();
-        
+
         public Form1()
         {
             InitializeComponent();
@@ -156,9 +156,10 @@ namespace Data_Preparation_Application
         public void Binarize(object sender,DoWorkEventArgs e)
         {
             Bitmap InputImage = null;
+            
             if(inPutRb.Checked)
             {
-                 InputImage = (Bitmap)input_PB.Image.Clone();
+                 InputImage = Accord.Imaging.Filters.Grayscale.CommonAlgorithms.BT709.Apply((Bitmap)input_PB.Image.Clone());
 
             }
             else if(outPutRB.Checked)
@@ -183,33 +184,36 @@ namespace Data_Preparation_Application
                     wolfFilter.Radius = int.Parse(holderTb_3.Text);
 
                 }
-                Bitmap raw_img = Accord.Imaging.Filters.Grayscale.CommonAlgorithms.BT709.Apply(InputImage);
+                Bitmap raw_img = InputImage;
                 
                 UnmanagedImage res= wolfFilter.Apply(UnmanagedImage.FromManagedImage(raw_img));
                 outputImageBox.Image.Dispose();
                 outputImageBox.Image = res.ToManagedImage();
+               
             }
             else if(simpleThresh.Checked)
             {
                 int Thresh = int.Parse(holderTb_1.Text);
                 var simpleThresh = new Threshold();
                 simpleThresh.ThresholdValue = Thresh;
-                Bitmap raw_img = Accord.Imaging.Filters.Grayscale.CommonAlgorithms.BT709.Apply(InputImage);
+                Bitmap raw_img = InputImage ;
 
                 UnmanagedImage res = simpleThresh.Apply(UnmanagedImage.FromManagedImage(raw_img));
                 outputImageBox.Image.Dispose();
                 outputImageBox.Image = res.ToManagedImage();
+                
             }
             else if(OtsuRb.Checked)
             {
                 int Thresh = int.Parse(holderTb_1.Text);
                 var OtsuThresh = new Threshold();
                 OtsuThresh.ThresholdValue = Thresh;
-                Bitmap raw_img = Accord.Imaging.Filters.Grayscale.CommonAlgorithms.BT709.Apply(InputImage);
+                Bitmap raw_img = InputImage;
 
                 UnmanagedImage res = OtsuThresh.Apply(UnmanagedImage.FromManagedImage(raw_img));
                 outputImageBox.Image.Dispose();
                 outputImageBox.Image = res.ToManagedImage();
+               
             }
            
 
@@ -220,7 +224,7 @@ namespace Data_Preparation_Application
             Bitmap raw_image = null;
             if(edgeInputRB.Checked)
             {
-                raw_image = (Bitmap)input_PB.Image.Clone();
+                raw_image = Accord.Imaging.Filters.Grayscale.CommonAlgorithms.BT709.Apply((Bitmap)input_PB.Image.Clone());
 
             }
             else if(edgeOutputRb.Checked)
@@ -231,8 +235,8 @@ namespace Data_Preparation_Application
             if (sobelRb.Checked)
             {
                 var sobel = new SobelEdgeDetector();
-                
-                Bitmap raw_img = Accord.Imaging.Filters.Grayscale.CommonAlgorithms.BT709.Apply(raw_image);
+
+                Bitmap raw_img = raw_image;
                 UnmanagedImage res = sobel.Apply(UnmanagedImage.FromManagedImage(raw_img));
                 outputImageBox.Image.Dispose();
                 outputImageBox.Image = res.ToManagedImage();
@@ -240,7 +244,7 @@ namespace Data_Preparation_Application
             else if(prewittRb.Checked)
             {
                 var prewitt = new DifferenceEdgeDetector();
-                Bitmap raw_img = Accord.Imaging.Filters.Grayscale.CommonAlgorithms.BT709.Apply(raw_image);
+                Bitmap raw_img = raw_image;
                 UnmanagedImage res = prewitt.Apply(UnmanagedImage.FromManagedImage(raw_img));
                 outputImageBox.Image.Dispose();
                 outputImageBox.Image = res.ToManagedImage();
@@ -249,7 +253,7 @@ namespace Data_Preparation_Application
             {
                
                 var canny = new CannyEdgeDetector();
-                Bitmap raw_img = Accord.Imaging.Filters.Grayscale.CommonAlgorithms.BT709.Apply(raw_image);
+                Bitmap raw_img = raw_image;
                 byte High = byte.Parse(textBox3.Text);
                 byte Low = byte.Parse(textBox2.Text);
                 double GaussSigma = double.Parse(textBox1.Text);
