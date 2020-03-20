@@ -25,6 +25,9 @@ namespace Data_Preparation_Application
             wolfRb.CheckedChanged += RadioBtnFunc;
             simpleThresh.CheckedChanged += RadioBtnFunc;
             OtsuRb.CheckedChanged += RadioBtnFunc;
+            sobelRb.CheckedChanged += RadioBtnFunc;
+            CannyRb.CheckedChanged += RadioBtnFunc;
+            prewittRb.CheckedChanged += RadioBtnFunc;
             ProcessWorker.DoWork += Binarize;
             EdgeDetect.DoWork += ApplyEdge;
         }
@@ -131,24 +134,37 @@ namespace Data_Preparation_Application
             }
             else if(selectedBtn.Text=="Sobel")
             {
-                label1.Visible = false;
-                label2.Visible = false;
-                label3.Visible = false;
-                textBox1.Visible = false;
-                textBox2.Visible = false;
-                textBox3.Visible = false;
+                panel4.Visible = false;
+            }
+            else if(selectedBtn.Text=="Canny")
+            {
+                panel4.Visible = true;
+            }
+            else if(selectedBtn.Text=="Prewitt")
+            {
+                panel4.Visible = false;
             }
         }
 
         private void binApplyBtn_Click(object sender, EventArgs e)
         {
-           
+            label4.Text = "Status : Processing!";
+
             ProcessWorker.RunWorkerAsync();
         }
 
         public void Binarize(object sender,DoWorkEventArgs e)
         {
-            Bitmap InputImage = (Bitmap)input_PB.Image.Clone();
+            Bitmap InputImage = null;
+            if(inPutRb.Checked)
+            {
+                 InputImage = (Bitmap)input_PB.Image.Clone();
+
+            }
+            else if(outPutRB.Checked)
+            {
+                InputImage = (Bitmap)outputImageBox.Image.Clone();
+            }
             if (wolfRb.Checked)
             {
                 var wolfFilter = new Accord.Imaging.Filters.WolfJolionThreshold();
@@ -195,25 +211,82 @@ namespace Data_Preparation_Application
                 outputImageBox.Image.Dispose();
                 outputImageBox.Image = res.ToManagedImage();
             }
+           
+
         }
 
         public void ApplyEdge(object sender,DoWorkEventArgs e)
         {
-            if(sobelRb.Checked)
+            Bitmap raw_image = null;
+            if(edgeInputRB.Checked)
+            {
+                raw_image = (Bitmap)input_PB.Image.Clone();
+
+            }
+            else if(edgeOutputRb.Checked)
+            {
+                raw_image = (Bitmap)outputImageBox.Image.Clone();
+
+            }
+            if (sobelRb.Checked)
             {
                 var sobel = new SobelEdgeDetector();
                 
-                Bitmap raw_img = Accord.Imaging.Filters.Grayscale.CommonAlgorithms.BT709.Apply((Bitmap)outputImageBox.Image.Clone());
+                Bitmap raw_img = Accord.Imaging.Filters.Grayscale.CommonAlgorithms.BT709.Apply(raw_image);
                 UnmanagedImage res = sobel.Apply(UnmanagedImage.FromManagedImage(raw_img));
                 outputImageBox.Image.Dispose();
                 outputImageBox.Image = res.ToManagedImage();
             }
+            else if(prewittRb.Checked)
+            {
+                var prewitt = new DifferenceEdgeDetector();
+                Bitmap raw_img = Accord.Imaging.Filters.Grayscale.CommonAlgorithms.BT709.Apply(raw_image);
+                UnmanagedImage res = prewitt.Apply(UnmanagedImage.FromManagedImage(raw_img));
+                outputImageBox.Image.Dispose();
+                outputImageBox.Image = res.ToManagedImage();
+            }
+            else if(CannyRb.Checked)
+            {
+               
+                var canny = new CannyEdgeDetector();
+                Bitmap raw_img = Accord.Imaging.Filters.Grayscale.CommonAlgorithms.BT709.Apply(raw_image);
+                byte High = byte.Parse(textBox3.Text);
+                byte Low = byte.Parse(textBox2.Text);
+                double GaussSigma = double.Parse(textBox1.Text);
+                int GaussSize = int.Parse(textBox4.Text);
+                canny.GaussianSize = GaussSize;
+                canny.HighThreshold = High;
+                canny.LowThreshold = Low;
+                canny.GaussianSigma = GaussSigma;
+                UnmanagedImage res = canny.Apply(UnmanagedImage.FromManagedImage(raw_img));
+                outputImageBox.Image.Dispose();
+                outputImageBox.Image = res.ToManagedImage();
+            }
+            
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            
+            label4.Text = "Status : Processing!";
+
             EdgeDetect.RunWorkerAsync();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ProcessWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            label4.Text = "Status : Done!";
+
+        }
+
+        private void EdgeDetect_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            label4.Text = "Status : Done!";
+
         }
     }
 }

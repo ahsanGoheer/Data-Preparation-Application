@@ -68,6 +68,14 @@
             this.sobelRb = new System.Windows.Forms.RadioButton();
             this.EdgeDetect = new System.ComponentModel.BackgroundWorker();
             this.label4 = new System.Windows.Forms.Label();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.edgeInputRB = new System.Windows.Forms.RadioButton();
+            this.edgeOutputRb = new System.Windows.Forms.RadioButton();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.outPutRB = new System.Windows.Forms.RadioButton();
+            this.inPutRb = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.input_PB)).BeginInit();
             this.panel1.SuspendLayout();
@@ -79,6 +87,8 @@
             this.tabPage2.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
+            this.panel6.SuspendLayout();
+            this.panel7.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -111,6 +121,10 @@
             this.input_PB.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.input_PB.TabIndex = 0;
             this.input_PB.TabStop = false;
+            // 
+            // ProcessWorker
+            // 
+            this.ProcessWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.ProcessWorker_RunWorkerCompleted);
             // 
             // panel1
             // 
@@ -226,6 +240,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.panel7);
             this.panel2.Controls.Add(this.binApplyBtn);
             this.panel2.Controls.Add(this.OtsuRb);
             this.panel2.Controls.Add(this.simpleThresh);
@@ -322,6 +337,8 @@
             // 
             // panel4
             // 
+            this.panel4.Controls.Add(this.textBox4);
+            this.panel4.Controls.Add(this.label5);
             this.panel4.Controls.Add(this.textBox1);
             this.panel4.Controls.Add(this.textBox2);
             this.panel4.Controls.Add(this.textBox3);
@@ -332,17 +349,19 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(337, 222);
             this.panel4.TabIndex = 3;
+            this.panel4.Visible = false;
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(130, 159);
+            this.textBox1.Location = new System.Drawing.Point(129, 125);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(166, 22);
             this.textBox1.TabIndex = 5;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(130, 98);
+            this.textBox2.Location = new System.Drawing.Point(129, 81);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(166, 22);
             this.textBox2.TabIndex = 4;
@@ -357,32 +376,33 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(28, 159);
+            this.label1.Location = new System.Drawing.Point(27, 125);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(66, 17);
+            this.label1.Size = new System.Drawing.Size(96, 17);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Holder3 :";
+            this.label1.Text = "GaussianSig :";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(28, 98);
+            this.label2.Location = new System.Drawing.Point(27, 81);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(66, 17);
+            this.label2.Size = new System.Drawing.Size(86, 17);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Holder2 :";
+            this.label2.Text = "LowThresh :";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(28, 40);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(66, 17);
+            this.label3.Size = new System.Drawing.Size(90, 17);
             this.label3.TabIndex = 0;
-            this.label3.Text = "Holder1 :";
+            this.label3.Text = "HighThresh :";
             // 
             // panel5
             // 
+            this.panel5.Controls.Add(this.panel6);
             this.panel5.Controls.Add(this.button3);
             this.panel5.Controls.Add(this.CannyRb);
             this.panel5.Controls.Add(this.prewittRb);
@@ -435,6 +455,10 @@
             this.sobelRb.Text = "Sobel";
             this.sobelRb.UseVisualStyleBackColor = true;
             // 
+            // EdgeDetect
+            // 
+            this.EdgeDetect.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.EdgeDetect_RunWorkerCompleted);
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -443,6 +467,84 @@
             this.label4.Size = new System.Drawing.Size(56, 17);
             this.label4.TabIndex = 6;
             this.label4.Text = "Status :";
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(129, 170);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(166, 22);
+            this.textBox4.TabIndex = 7;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(27, 170);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(103, 17);
+            this.label5.TabIndex = 6;
+            this.label5.Text = "Gaussian Size:";
+            // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.edgeOutputRb);
+            this.panel6.Controls.Add(this.edgeInputRB);
+            this.panel6.Location = new System.Drawing.Point(16, 163);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(192, 29);
+            this.panel6.TabIndex = 4;
+            // 
+            // edgeInputRB
+            // 
+            this.edgeInputRB.AutoSize = true;
+            this.edgeInputRB.Location = new System.Drawing.Point(15, 3);
+            this.edgeInputRB.Name = "edgeInputRB";
+            this.edgeInputRB.Size = new System.Drawing.Size(60, 21);
+            this.edgeInputRB.TabIndex = 0;
+            this.edgeInputRB.TabStop = true;
+            this.edgeInputRB.Text = "input";
+            this.edgeInputRB.UseVisualStyleBackColor = true;
+            // 
+            // edgeOutputRb
+            // 
+            this.edgeOutputRb.AutoSize = true;
+            this.edgeOutputRb.Location = new System.Drawing.Point(108, 3);
+            this.edgeOutputRb.Name = "edgeOutputRb";
+            this.edgeOutputRb.Size = new System.Drawing.Size(69, 21);
+            this.edgeOutputRb.TabIndex = 1;
+            this.edgeOutputRb.TabStop = true;
+            this.edgeOutputRb.Text = "output";
+            this.edgeOutputRb.UseVisualStyleBackColor = true;
+            // 
+            // panel7
+            // 
+            this.panel7.Controls.Add(this.outPutRB);
+            this.panel7.Controls.Add(this.inPutRb);
+            this.panel7.Location = new System.Drawing.Point(31, 174);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(192, 29);
+            this.panel7.TabIndex = 5;
+            // 
+            // outPutRB
+            // 
+            this.outPutRB.AutoSize = true;
+            this.outPutRB.Location = new System.Drawing.Point(108, 3);
+            this.outPutRB.Name = "outPutRB";
+            this.outPutRB.Size = new System.Drawing.Size(69, 21);
+            this.outPutRB.TabIndex = 1;
+            this.outPutRB.TabStop = true;
+            this.outPutRB.Text = "output";
+            this.outPutRB.UseVisualStyleBackColor = true;
+            // 
+            // inPutRb
+            // 
+            this.inPutRb.AutoSize = true;
+            this.inPutRb.Location = new System.Drawing.Point(3, 3);
+            this.inPutRb.Name = "inPutRb";
+            this.inPutRb.Size = new System.Drawing.Size(60, 21);
+            this.inPutRb.TabIndex = 0;
+            this.inPutRb.TabStop = true;
+            this.inPutRb.Text = "input";
+            this.inPutRb.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -475,6 +577,10 @@
             this.panel4.PerformLayout();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
+            this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
+            this.panel7.ResumeLayout(false);
+            this.panel7.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -522,6 +628,14 @@
         private System.Windows.Forms.RadioButton sobelRb;
         private System.ComponentModel.BackgroundWorker EdgeDetect;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.RadioButton outPutRB;
+        private System.Windows.Forms.RadioButton inPutRb;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.RadioButton edgeOutputRb;
+        private System.Windows.Forms.RadioButton edgeInputRB;
     }
 }
 
