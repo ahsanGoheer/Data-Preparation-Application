@@ -63,9 +63,11 @@
             this.label3 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
             this.button3 = new System.Windows.Forms.Button();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.CannyRb = new System.Windows.Forms.RadioButton();
+            this.prewittRb = new System.Windows.Forms.RadioButton();
+            this.sobelRb = new System.Windows.Forms.RadioButton();
+            this.EdgeDetect = new System.ComponentModel.BackgroundWorker();
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.input_PB)).BeginInit();
             this.panel1.SuspendLayout();
@@ -382,9 +384,9 @@
             // panel5
             // 
             this.panel5.Controls.Add(this.button3);
-            this.panel5.Controls.Add(this.radioButton1);
-            this.panel5.Controls.Add(this.radioButton2);
-            this.panel5.Controls.Add(this.radioButton3);
+            this.panel5.Controls.Add(this.CannyRb);
+            this.panel5.Controls.Add(this.prewittRb);
+            this.panel5.Controls.Add(this.sobelRb);
             this.panel5.Location = new System.Drawing.Point(24, 25);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(338, 222);
@@ -398,45 +400,56 @@
             this.button3.TabIndex = 3;
             this.button3.Text = "Apply";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // radioButton1
+            // CannyRb
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(31, 125);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(69, 21);
-            this.radioButton1.TabIndex = 2;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Canny";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.CannyRb.AutoSize = true;
+            this.CannyRb.Location = new System.Drawing.Point(31, 125);
+            this.CannyRb.Name = "CannyRb";
+            this.CannyRb.Size = new System.Drawing.Size(69, 21);
+            this.CannyRb.TabIndex = 2;
+            this.CannyRb.TabStop = true;
+            this.CannyRb.Text = "Canny";
+            this.CannyRb.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
+            // prewittRb
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(31, 80);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(71, 21);
-            this.radioButton2.TabIndex = 1;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Prewitt";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.prewittRb.AutoSize = true;
+            this.prewittRb.Location = new System.Drawing.Point(31, 80);
+            this.prewittRb.Name = "prewittRb";
+            this.prewittRb.Size = new System.Drawing.Size(71, 21);
+            this.prewittRb.TabIndex = 1;
+            this.prewittRb.TabStop = true;
+            this.prewittRb.Text = "Prewitt";
+            this.prewittRb.UseVisualStyleBackColor = true;
             // 
-            // radioButton3
+            // sobelRb
             // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(31, 38);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(65, 21);
-            this.radioButton3.TabIndex = 0;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "Sobel";
-            this.radioButton3.UseVisualStyleBackColor = true;
+            this.sobelRb.AutoSize = true;
+            this.sobelRb.Location = new System.Drawing.Point(31, 38);
+            this.sobelRb.Name = "sobelRb";
+            this.sobelRb.Size = new System.Drawing.Size(65, 21);
+            this.sobelRb.TabIndex = 0;
+            this.sobelRb.TabStop = true;
+            this.sobelRb.Text = "Sobel";
+            this.sobelRb.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(304, 785);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(56, 17);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Status :";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1505, 847);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.toolsTab);
@@ -504,9 +517,11 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton3;
+        private System.Windows.Forms.RadioButton CannyRb;
+        private System.Windows.Forms.RadioButton prewittRb;
+        private System.Windows.Forms.RadioButton sobelRb;
+        private System.ComponentModel.BackgroundWorker EdgeDetect;
+        private System.Windows.Forms.Label label4;
     }
 }
 

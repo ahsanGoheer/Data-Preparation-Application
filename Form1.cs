@@ -26,6 +26,7 @@ namespace Data_Preparation_Application
             simpleThresh.CheckedChanged += RadioBtnFunc;
             OtsuRb.CheckedChanged += RadioBtnFunc;
             ProcessWorker.DoWork += Binarize;
+            EdgeDetect.DoWork += ApplyEdge;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -74,7 +75,7 @@ namespace Data_Preparation_Application
             string filePath = imageBox.SelectedItem as string;
             Bitmap loaded_img = new Bitmap(filePath);
             input_PB.Image = loaded_img;
-            
+            outputImageBox.Image =(Bitmap)loaded_img.Clone();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -128,15 +129,26 @@ namespace Data_Preparation_Application
                 holderTb_2.Visible = false;
                 holderTb_3.Visible = false;
             }
+            else if(selectedBtn.Text=="Sobel")
+            {
+                label1.Visible = false;
+                label2.Visible = false;
+                label3.Visible = false;
+                textBox1.Visible = false;
+                textBox2.Visible = false;
+                textBox3.Visible = false;
+            }
         }
 
         private void binApplyBtn_Click(object sender, EventArgs e)
         {
+           
             ProcessWorker.RunWorkerAsync();
         }
 
         public void Binarize(object sender,DoWorkEventArgs e)
         {
+            Bitmap InputImage = (Bitmap)input_PB.Image.Clone();
             if (wolfRb.Checked)
             {
                 var wolfFilter = new Accord.Imaging.Filters.WolfJolionThreshold();
@@ -155,9 +167,10 @@ namespace Data_Preparation_Application
                     wolfFilter.Radius = int.Parse(holderTb_3.Text);
 
                 }
-                Bitmap raw_img = Accord.Imaging.Filters.Grayscale.CommonAlgorithms.BT709.Apply((Bitmap)input_PB.Image.Clone());
+                Bitmap raw_img = Accord.Imaging.Filters.Grayscale.CommonAlgorithms.BT709.Apply(InputImage);
                 
                 UnmanagedImage res= wolfFilter.Apply(UnmanagedImage.FromManagedImage(raw_img));
+                outputImageBox.Image.Dispose();
                 outputImageBox.Image = res.ToManagedImage();
             }
             else if(simpleThresh.Checked)
@@ -165,9 +178,10 @@ namespace Data_Preparation_Application
                 int Thresh = int.Parse(holderTb_1.Text);
                 var simpleThresh = new Threshold();
                 simpleThresh.ThresholdValue = Thresh;
-                Bitmap raw_img = Accord.Imaging.Filters.Grayscale.CommonAlgorithms.BT709.Apply((Bitmap)input_PB.Image.Clone());
+                Bitmap raw_img = Accord.Imaging.Filters.Grayscale.CommonAlgorithms.BT709.Apply(InputImage);
 
                 UnmanagedImage res = simpleThresh.Apply(UnmanagedImage.FromManagedImage(raw_img));
+                outputImageBox.Image.Dispose();
                 outputImageBox.Image = res.ToManagedImage();
             }
             else if(OtsuRb.Checked)
@@ -175,11 +189,31 @@ namespace Data_Preparation_Application
                 int Thresh = int.Parse(holderTb_1.Text);
                 var OtsuThresh = new Threshold();
                 OtsuThresh.ThresholdValue = Thresh;
-                Bitmap raw_img = Accord.Imaging.Filters.Grayscale.CommonAlgorithms.BT709.Apply((Bitmap)input_PB.Image.Clone());
+                Bitmap raw_img = Accord.Imaging.Filters.Grayscale.CommonAlgorithms.BT709.Apply(InputImage);
 
                 UnmanagedImage res = OtsuThresh.Apply(UnmanagedImage.FromManagedImage(raw_img));
+                outputImageBox.Image.Dispose();
                 outputImageBox.Image = res.ToManagedImage();
             }
+        }
+
+        public void ApplyEdge(object sender,DoWorkEventArgs e)
+        {
+            if(sobelRb.Checked)
+            {
+                var sobel = new SobelEdgeDetector();
+                
+                Bitmap raw_img = Accord.Imaging.Filters.Grayscale.CommonAlgorithms.BT709.Apply((Bitmap)outputImageBox.Image.Clone());
+                UnmanagedImage res = sobel.Apply(UnmanagedImage.FromManagedImage(raw_img));
+                outputImageBox.Image.Dispose();
+                outputImageBox.Image = res.ToManagedImage();
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            
+            EdgeDetect.RunWorkerAsync();
         }
     }
 }
